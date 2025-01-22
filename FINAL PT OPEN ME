@@ -1,0 +1,38 @@
+import turtle
+
+# Set up the screen
+screen = turtle.Screen()
+screen.bgcolor("black")
+
+# Set up the turtle
+t = turtle.Turtle()
+t.shape("turtle")
+t.color("red")
+t.speed(3)
+
+# Function to draw a heart
+def draw_heart():
+    t.begin_fill()
+
+    t.left(50)
+    t.forward(133)
+    t.circle(50, 200)
+    t.right(140)
+    t.circle(50, 200)
+    t.forward(133)
+
+    t.end_fill()
+
+# Move turtle to starting position
+t.penup()
+t.goto(0, -200)
+t.pendown()
+
+# Draw the heart
+draw_heart()
+
+# Hide the turtle and display the result
+t.hideturtle()
+
+# Keeps the window open
+turtle.done()
