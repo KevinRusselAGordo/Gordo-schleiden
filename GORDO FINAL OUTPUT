@@ -1,0 +1,23 @@
+import turtle
+
+t = turtle.Turtle()
+t.speed(0)
+turtle.bgcolor("white")
+
+# This makes it draw petals
+for _ in range(36):
+    t.color("violet")
+    t.circle(50, 60)  # Half a circle for petal shape
+    t.left(120)
+    t.circle(50, 60)
+    t.left(10)
+
+# This makes the center of the flower
+t.color("yellow")
+t.penup()
+t.goto(0, -10)
+t.pendown()
+t.circle(10)
+
+t.hideturtle()
+turtle.done()
