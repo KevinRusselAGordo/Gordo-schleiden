@@ -7,27 +7,20 @@ def calculate_age(birthdate):
     try:
         bdate = datetime.strptime(birthdate, "%Y-%m-%d")
         today = datetime.today()
-        age = today.year - bdate.year - ((today.month, today.day) < (bdate.month, bdate.day))
-        return age
+        return today.year - bdate.year - ((today.month, today.day) < (bdate.month, bdate.day))
     except ValueError:
         return None
 
 def get_age():
     """Handles button click, calculates age, and shows result."""
-    birthdate = entry.get()
-    age = calculate_age(birthdate)
+    age = calculate_age(entry.get())
     if age is not None:
         messagebox.showinfo("Age Checker", f"Yo! You are {age} years old. Time flies, huh?")
     else:
         messagebox.showerror("Oops!", "Bruh, that's not a valid date. Use YYYY-MM-DD format!")
 
-def on_enter(e):
-    """Button hover effect (enter)."""
-    btn['background'] = '#ff784e'
-
-def on_leave(e):
-    """Button hover effect (leave)."""
-    btn['background'] = '#ff5733'
+def on_hover(e):
+    btn.config(bg="#ff784e") if e.type == tk.EventType.Enter else btn.config(bg="#ff5733")
 
 # GUI Setup
 root = tk.Tk()
@@ -36,31 +29,17 @@ root.geometry("400x300")
 root.configure(bg="#222222")
 root.resizable(False, False)
 
-# Title Label
-tk.Label(root, text="✨ Vibe Check: How Old Are You? ✨",
-         font=("Comic Sans MS", 14, "bold"), fg="white", bg="#222222").pack(pady=15)
+tk.Label(root, text="Vibe Check: How Old Are You? ", font=("Comic Sans MS", 14, "bold"), fg="white", bg="#222222").pack(pady=15)
+tk.Label(root, text="Drop your birthdate (YYYY-MM-DD):", font=("Comic Sans MS", 11), fg="white", bg="#222222").pack(pady=8)
 
-# Instruction Label
-tk.Label(root, text="Drop your birthdate (YYYY-MM-DD):",
-         font=("Comic Sans MS", 11), fg="white", bg="#222222").pack(pady=8)
-
-# Entry Widget
-entry = tk.Entry(root, font=("Arial", 12), fg="#333333", bg="#eeeeee",
-                 bd=3, relief=tk.FLAT, justify='center')
+entry = tk.Entry(root, font=("Arial", 12), fg="#333333", bg="#eeeeee", bd=3, relief=tk.FLAT, justify='center')
 entry.pack(pady=5, ipadx=10, ipady=6)
 
-# Button with hover effect
-btn = tk.Button(root, text="Hit me up with my age!", font=("Comic Sans MS", 12),
-                bg="#ff5733", fg="white", activebackground="#ff784e",
-                activeforeground="white", relief=tk.FLAT, command=get_age)
+btn = tk.Button(root, text="Hit me up with my age!", font=("Comic Sans MS", 12), bg="#ff5733", fg="white", activebackground="#ff784e", activeforeground="white", relief=tk.FLAT, command=get_age)
 btn.pack(pady=20, ipadx=10, ipady=5)
+btn.bind("<Enter>", on_hover)
+btn.bind("<Leave>", on_hover)
 
-btn.bind("<Enter>", on_enter)
-btn.bind("<Leave>", on_leave)
-
-# Footer Label
-tk.Label(root, text="Made with 💖 for Gen Z",
-         font=("Comic Sans MS", 9, "italic"), fg="white", bg="#222222").pack(side=tk.BOTTOM, pady=10)
+tk.Label(root, text="Made with <3 for Gen Z", font=("Comic Sans MS", 9, "italic"), fg="white", bg="#222222").pack(side=tk.BOTTOM, pady=10)
 
 root.mainloop()
-
