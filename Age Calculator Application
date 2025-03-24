@@ -3,43 +3,71 @@ from tkinter import messagebox
 from datetime import datetime
 
 def calculate_age(birthdate):
-    """Calculates the age based on the birthdate input."""
+    """Calculates the age."""
     try:
-        bdate = datetime.strptime(birthdate, "%Y-%m-%d")
+        bdate = datetime.strptime(
+            birthdate, "%Y-%m-%d")
         today = datetime.today()
-        return today.year - bdate.year - ((today.month, today.day) < (bdate.month, bdate.day))
+        return today.year - bdate.year - (
+            (today.month, today.day) <
+            (bdate.month, bdate.day))
     except ValueError:
         return None
 
 def get_age():
-    """Handles button click, calculates age, and shows result."""
+    """Handles button click."""
     age = calculate_age(entry.get())
     if age is not None:
-        messagebox.showinfo("Age Checker", f"Yo! You are {age} years old. Time flies, huh?")
+        messagebox.showinfo(
+            "Age Checker",
+            f"Yo! You are {age} years old.")
     else:
-        messagebox.showerror("Oops!", "Bruh, that's not a valid date. Use YYYY-MM-DD format!")
+        messagebox.showerror(
+            "Oops!",
+            "Bruh, invalid date!"
+            " Use YYYY-MM-DD format!")
 
 def on_hover(e):
-    btn.config(bg="#ff784e") if e.type == tk.EventType.Enter else btn.config(bg="#ff5733")
+    """Button hover effect."""
+    if e.type == tk.EventType.Enter:
+        btn.config(bg="#ff784e")
+    else:
+        btn.config(bg="#ff5733")
 
-# GUI Setup
 root = tk.Tk()
-root.title("Vibe Check: Age Calculator")
+root.title("Vibe Check: Age Calc")
 root.geometry("400x300")
 root.configure(bg="#222222")
 root.resizable(False, False)
 
-tk.Label(root, text="Vibe Check: How Old Are You? ", font=("Comic Sans MS", 14, "bold"), fg="white", bg="#222222").pack(pady=15)
-tk.Label(root, text="Drop your birthdate (YYYY-MM-DD):", font=("Comic Sans MS", 11), fg="white", bg="#222222").pack(pady=8)
+tk.Label(root, text="How Old Are You?",
+         font=("Comic Sans MS", 14, "bold"),
+         fg="white", bg="#222222").pack(pady=15)
 
-entry = tk.Entry(root, font=("Arial", 12), fg="#333333", bg="#eeeeee", bd=3, relief=tk.FLAT, justify='center')
+tk.Label(root, text="Enter birthdate (YYYY-MM-DD):",
+         font=("Comic Sans MS", 11),
+         fg="white", bg="#222222").pack(pady=8)
+
+entry = tk.Entry(root, font=("Arial", 12),
+                 fg="#333333", bg="#eeeeee",
+                 bd=3, relief=tk.FLAT,
+                 justify='center')
 entry.pack(pady=5, ipadx=10, ipady=6)
 
-btn = tk.Button(root, text="Hit me up with my age!", font=("Comic Sans MS", 12), bg="#ff5733", fg="white", activebackground="#ff784e", activeforeground="white", relief=tk.FLAT, command=get_age)
+btn = tk.Button(root, text="Check My Age!",
+                font=("Comic Sans MS", 12),
+                bg="#ff5733", fg="white",
+                activebackground="#ff784e",
+                activeforeground="white",
+                relief=tk.FLAT, command=get_age)
 btn.pack(pady=20, ipadx=10, ipady=5)
+
 btn.bind("<Enter>", on_hover)
 btn.bind("<Leave>", on_hover)
 
-tk.Label(root, text="Made with <3 for Gen Z", font=("Comic Sans MS", 9, "italic"), fg="white", bg="#222222").pack(side=tk.BOTTOM, pady=10)
+tk.Label(root, text="Made with love for Gen Z",
+         font=("Comic Sans MS", 9, "italic"),
+         fg="white", bg="#222222").pack(
+         side=tk.BOTTOM, pady=10)
 
 root.mainloop()
